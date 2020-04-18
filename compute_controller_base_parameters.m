@@ -42,11 +42,15 @@ function param = compute_controller_base_parameters
     Q = diag([10, 1, 1]);
     R = eye(2);
     
+    % (6) Terminal cost computation via LQR
+    [K, P] = dlqr(A, B, Q, R);
+        
     % put everything together
     param.A = A;
     param.B = B;
     param.Q = Q;
     param.R = R;
+    param.P = P;
     param.T_sp = T_sp;
     param.p_sp = p_sp;
     param.Ucons = Ucons;
