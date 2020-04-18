@@ -11,6 +11,7 @@ function param = compute_controller_base_parameters
     m3 = truck.m3;
     InputConstraints = truck.InputConstraints;
     StateConstraints = truck.StateConstraints;
+    b_ref = truck.b_ref;
     w = truck.w;
     To = truck.To;
     
@@ -20,8 +21,8 @@ function param = compute_controller_base_parameters
     B = Ts .* [1/m1, 0; 0, 1/m2; 0, 0];
     
     % (3) set point computation
-    T_sp1 = -21;
-    T_sp2 = 0.3;
+    T_sp1 = b_ref(1);
+    T_sp2 = b_ref(2);
     T_sp3 = (a23*T_sp2 + a3o*To + w(3))/(a23 + a3o);
     p_sp1 = (a1o+a12)*T_sp1 - a12*T_sp2 - (a1o*To + w(1));
     p_sp2 = -a12*T_sp1 + (a12+a23+a2o)*T_sp2 - a23*T_sp3 - (a2o*To + w(2));
@@ -38,7 +39,7 @@ function param = compute_controller_base_parameters
     Xcons = Tcons - [T_sp, T_sp];
     
     % (5) LQR cost function
-    Q = 10*eye(3);
+    Q = diag([10, 1, 1]);
     R = eye(2);
     
     % put everything together
@@ -53,4 +54,3 @@ function param = compute_controller_base_parameters
     param.Tcons = Tcons;
     param.Pcons = Pcons;
 end
-
