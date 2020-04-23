@@ -39,7 +39,7 @@ function param = compute_controller_base_parameters
     Xcons = Tcons - [T_sp, T_sp];
     
     % (5) LQR cost function
-    Q = diag([10, 1, 1]);
+    Q = 50000 * diag([1, 1, 1]);
     R = eye(2);
     
     % (6) Terminal cost computation via LQR
