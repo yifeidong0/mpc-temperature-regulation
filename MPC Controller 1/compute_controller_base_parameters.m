@@ -38,18 +38,19 @@ function param = compute_controller_base_parameters
     Xcons = Tcons - [T_sp, T_sp];
     
     % (5) LQR cost function
-    Q = 10*eye(3);
-    R = eye(2);
+    Q = 50000*diag([1,1,1]);
+    R = diag([1,1]);
         
     % (6) Terminal cost computation via LQR
-    [K, P] = dlqr(A, B, Q, R);
+    %[K, P] = dlqr(A, B, Q, R);
     
     % put everything together
     param.A = A;
     param.B = B;
     param.Q = Q;
     param.R = R;
-    param.P = P;
+    %param.P = P;
+    %param.K = K;
     param.T_sp = T_sp;
     param.p_sp = p_sp;
     param.Ucons = Ucons;

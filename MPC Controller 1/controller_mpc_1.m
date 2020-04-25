@@ -27,7 +27,7 @@ function [param, yalmip_optimizer] = init()
 % Yalmip optimizer object
 
 param = compute_controller_base_parameters; % get basic controller parameters
-
+[param.K, param.P] = dlqr(param.A, param.B, param.Q, param.R);
 %% implement your MPC using Yalmip here, e.g.
 N = 30;
 nx = size(param.A,1);
